@@ -172,6 +172,16 @@ pytest-Subprocess mit mehreren echten `solve_exact`-Aufrufen, rund 3–4 Minuten
 - **Mehrere Schiffe/Flottenplanung** – diese Demo behandelt eine einzelne Route.
 - **Prognoseunschärfe der Fenster selbst** (die Fenster gelten hier als sicher bekannt).
 
+## Verwandte Demos mit demselben mathematischen Modell
+
+Verschiedene Themen im Portfolio teilen (fast) dasselbe Modell. Vor einer neuen Demo-Idee deshalb das
+Modell vergleichen, nicht die Kulisse (Stand 2026-09-23):
+
+- **CO2-optimale Fahrgeschwindigkeit im Straßenverkehr** (Pollution-Routing, `vrp_demo`) ist dasselbe Geschwindigkeitsmodell
+  mit Lkw statt Schiff: kubische bis quadratische Verbrauchskosten, Zeitfenster je Etappe, gemeinsame gegen lokale
+  Berücksichtigung. Als Dopplung verworfen. Neu wäre nur die Kopplung mit der Tourenwahl. Die Befunde dieser Demo
+  (kleiner Kostenunterschied, der Hook ist die Zuverlässigkeit der Fenster) sind dafür der Ausgangspunkt.
+
 ## Lokal ausführen
 
 ```bash
