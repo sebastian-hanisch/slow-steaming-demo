@@ -112,7 +112,7 @@ Regler-Hilfetext. Permalink spiegelt alle fünf Werte in der Adresszeile.
 
 ## Tests
 
-`python -m pytest tests/ -v` – 110 Tests, rund 5 Minuten (die meisten AppTest-Läufe brauchen mehrere echte `solve_exact`-Aufrufe; „Nicht machbar" allein braucht deutlich länger, weil jede infeasible
+`python -m pytest tests/ -v` – 113 Tests, rund 5 Minuten (die meisten AppTest-Läufe brauchen mehrere echte `solve_exact`-Aufrufe; „Nicht machbar" allein braucht deutlich länger, weil jede infeasible
 Instanz den Löser bis `maxiter=500` laufen lässt statt früh abzubrechen). Zusammensetzung:
 
 - **Löser** (`test_solve.py`): **Optimalitäts-Regressionstest zuerst** (61 Instanzen inkl. der ursprünglichen Bug-Instanz), statischer Quelltext-Check gegen die Rückkehr des `res.success`-Bugs,
@@ -129,7 +129,22 @@ Instanz den Löser bis `maxiter=500` laufen lässt statt früh abzubrechen). Zus
   (inkl. Enum-Decodierung), alle Regler an Min/Max, die bedingte Meldung in beiden Zuständen, Urteil in allen drei Zuständen, Vergleichstabelle, PDF (auch im infeasiblen Fall), Texte, statischer
   Nachweis, dass der Ladeindikator (`show_spinner=C.SOLVE_SPINNER_TEXT`) tatsächlich am `solve_exact`-Aufruf hängt.
 
-Zusätzlich ein Fehler-Einbau-Test (`tools/mutation_check.py`, 20 Mutanten über `sls_solve`, `sls_scenario`, `sls_evaluation`, `sls_stories`, `sls_presets`): **MUTATION_ERGEBNIS_PLATZHALTER.**
+Zusätzlich ein Fehler-Einbau-Test (`tools/mutation_check.py`, 21 Mutanten über `sls_solve`, `sls_scenario`, `sls_evaluation`, `sls_stories`, `sls_presets`): erster Lauf **12 gefunden, 9 überlebt, 0 Fehler
+in der Mutantenliste.** Drei der neun Überlebenden waren echte Testlücken (Distanz-Obergrenze nur locker statt eng geprüft, zwei exakte Schwellenwerte ohne künstlichen Grenzfalltest) – dafür wurden drei
+gezielte Tests ergänzt (`test_distances_span_close_to_the_full_documented_range_across_many_draws`, `test_verdict_is_unclear_exactly_at_the_two_standard_error_threshold`,
+`test_artificial_values_tip_the_mittel_myopic_criterion_exactly_at_its_threshold`); alle drei Mutationen wurden danach einzeln direkt (ohne den vollen, mehrere Sekunden je Mutant kostenden
+Testsuite-Durchlauf) gegen die neuen Tests nachgerechnet und nachweislich gefangen – ein vollständiger zweiter 21-Mutanten-Lauf wurde aus Zeitgründen nicht wiederholt (jeder Mutant startet eine eigene
+pytest-Subprocess mit mehreren echten `solve_exact`-Aufrufen, rund 3–4 Minuten je Mutant). Die verbleibenden sechs Überlebenden sind gleichwertig (kein sichtbarer Unterschied im Verhalten):
+
+- `solve_exact`: `fun < best_fun` → `fun > best_fun` beim Kandidatenvergleich überlebt, weil die App/alle Tests `n_starts=1` verwenden (ein einziger Startpunkt) – der Vergleich wird bei nur einem
+  Kandidaten nie ausgewertet (`best_fun is None` ist immer wahr beim ersten und einzigen Aufruf).
+- `solve_myopic`: `remaining > 0` → `remaining >= 0` überlebt, weil `remaining == 0.0` exakt nur bei einem Gleitkomma-Nulltreffer einträte – mit stetig verteilten Zufallsdistanzen praktisch
+  Wahrscheinlichkeit 0.
+- `make_route`: `rng.random(n_legs) < tight_share` → `<=` überlebt aus demselben Grund (stetige Gleichverteilung, exakter Treffer auf `tight_share` praktisch ausgeschlossen).
+- `verdict`: `"better"` → `"worse"` im `se == 0`-Zweig überlebt, weil die Differenz in diesem Zweig durch die Konstruktion (`0 - 100×Verspätungsanteil`) nie positiv sein kann – der `"worse"`-Fall ist
+  in diesem Zweig unerreichbarer Code.
+- `sls_stories`: `const_late == 0.0` → `<= 0.0` überlebt, weil ein Verspätungsanteil (Prozentsatz) konstruktionsbedingt nie negativ werden kann – beide Vergleiche sind identisch.
+- `sls_stories`: `n_infeasible == n` → `>= n` überlebt, weil `n_infeasible` (eine Zählung unter `n` Routen) `n` nie überschreiten kann – beide Vergleiche sind identisch.
 
 ## Dateistruktur
 

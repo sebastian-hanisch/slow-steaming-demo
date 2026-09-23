@@ -80,6 +80,24 @@ def test_verdict_diff_is_never_positive_worse_than_myopic():
     assert v.diff <= 0.0
 
 
+def test_verdict_is_unclear_exactly_at_the_two_standard_error_threshold():
+    """Kuenstliche Route-Ergebnisse, bei denen |Differenz| = VERDICT_Z * Standardfehler EXAKT gilt (3
+    Routen, 2 davon myopisch verspaetet: Differenz=-66,667, SE=33,333, Z*SE=66,667) - deckt die
+    Randbedingung <= gegen < im Vergleich direkt ab, nicht nur ungefaehr ueber echte Stichproben."""
+    R = E.RouteResult
+
+    def make(n_late_myo):
+        return R(seed=0, n_windows=1, v_exact=(18.0,), v_myo=(18.0,), v_const=(18.0,), cost_exact=100.0,
+                 cost_myo=100.0, cost_const=100.0, late_myo=1.0 if n_late_myo else 0.0, n_late_myo=n_late_myo,
+                 late_const=0.0, n_late_const=0)
+
+    results = (make(1), make(1), make(0))
+    v = E.verdict(results)
+    assert v.n == 3
+    assert abs(abs(v.diff) - C.VERDICT_Z * v.se) < 1e-9
+    assert v.kind == "unclear"
+
+
 def test_verdict_handles_no_feasible_routes():
     R = E.RouteResult
     results = (R(seed=0, n_windows=1, v_exact=None, v_myo=(1.0,), v_const=(1.0,), cost_exact=None, cost_myo=1.0, cost_const=1.0, late_myo=1.0, n_late_myo=1, late_const=1.0, n_late_const=1),)

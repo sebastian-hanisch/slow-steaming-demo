@@ -70,6 +70,27 @@ def test_artificial_values_tip_each_locker_criterion_exactly_at_its_threshold():
     assert not ok_below
 
 
+def test_artificial_values_tip_the_mittel_myopic_criterion_exactly_at_its_threshold():
+    """18 von 60 Routen mit myopisch-Verspaetung = genau 30,0 % -> an der "<= 30 %"-Schwelle von
+    "Mittel" noch erfuellt; 19 von 60 = 31,7 % -> knapp darueber, nicht mehr erfuellt."""
+    R = E.RouteResult
+
+    def make(n_late_myo):
+        return R(seed=0, n_windows=1, v_exact=(18.0,), v_myo=(18.0,), v_const=(18.0,), cost_exact=100.0,
+                 cost_myo=100.0, cost_const=100.0, late_myo=1.0 if n_late_myo else 0.0, n_late_myo=n_late_myo,
+                 late_const=0.0, n_late_const=0)
+
+    at_threshold = tuple(make(1) for _ in range(18)) + tuple(make(0) for _ in range(42))
+    assert E.late_share_pct(at_threshold, C.POLICY_MYOPIC) == 30.0
+    ok_at = [ok for ok, text in ST.criteria("Mittel", at_threshold) if "myopisch" in text][0]
+    assert ok_at
+
+    above_threshold = tuple(make(1) for _ in range(19)) + tuple(make(0) for _ in range(41))
+    assert above_threshold[0].n_late_myo == 1
+    ok_above = [ok for ok, text in ST.criteria("Mittel", above_threshold) if "myopisch" in text][0]
+    assert not ok_above
+
+
 def test_nicht_machbar_criterion_tips_when_even_one_route_is_feasible():
     R = E.RouteResult
     all_infeasible = tuple(R(seed=i, n_windows=1, v_exact=None, v_myo=(1.0,), v_const=(1.0,), cost_exact=None,

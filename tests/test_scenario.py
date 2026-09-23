@@ -51,6 +51,18 @@ def test_different_seeds_produce_different_distances():
     assert not np.array_equal(a["dist"], b["dist"])
 
 
+def test_distances_span_close_to_the_full_documented_range_across_many_draws():
+    """Statistischer Nachweis ueber viele Ziehungen (nicht nur eine Ziehung, die auch bei einer
+    verkleinerten Obergrenze zufaellig innerhalb von <=1500 bleiben koennte): das dokumentierte Band
+    200-1500 wird tatsaechlich (fast) ausgeschoepft, nicht nur nach oben begrenzt."""
+    dists = []
+    for seed in range(30):
+        route = make_route(10, seed)
+        dists.extend(route["dist"])
+    assert max(dists) > 1450
+    assert min(dists) < 250
+
+
 def test_looser_factor_band_never_binds_deadlines_below_a_tighter_one():
     """Ein groesserer tight_lo/tight_hi-Faktor macht die Deadline (bei gleichem Seed/has_window) nie
     kleiner - direkte Konsequenz aus deadline = cum_econ * factor."""
