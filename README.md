@@ -62,7 +62,7 @@ Alle Zahlen mit `python -m pytest tests/` nachvollziehbar (`test_solve.py`, `tes
 | Stimmt die Handinstanz mit einem bindenden Fenster (KKT)? | Ja: erwartete Geschwindigkeiten [20,0, 20,0, 18,0] kn exakt getroffen | `test_solve.py::test_hand_derived_single_window_instance_matches_the_kkt_solution` |
 | Erhöhen engere Fenster die Kosten nie? | Ja: 120/120 geprüfte Lösungen, 0 Monotonie-Verletzungen | `test_solve.py::test_tighter_windows_never_lower_the_cost` |
 | Ist „exakt" jemals teurer als eine andere zulässige Lösung? | Nein: 0 Verletzungen über 61 Instanzen (60 Zufallsrouten + die ursprüngliche Bug-Instanz Seed 201) | `test_solve.py::test_optimality_regression_exact_is_never_costlier_than_a_feasible_alternative` |
-| Wie klein ist der Kostenaufschlag wirklich? | Myopisch 0,62–4,54 % teurer als exakt (Presets); konstant sogar bis 0,32 % *billiger* (ignoriert Fenster) | `test_preset_stories.py` |
+| Wie klein ist der Kostenaufschlag wirklich? | Myopisch 0,62–4,61 % teurer als exakt (Presets); konstant sogar bis 0,32 % *billiger* (ignoriert Fenster) | `test_preset_stories.py` |
 | Wie groß ist die Verspätungslücke? | Konstant verpasst Fenster in 0–100 % der Fälle (preset-abhängig); myopisch noch in 21,7–51,7 % | `test_preset_stories.py` |
 | Erkennt der Löser echte Unerreichbarkeit zuverlässig? | Ja: 60/60 Stichprobenrouten korrekt als „nicht machbar" erkannt (Preset „Nicht machbar"), 0 falsche Kostenwerte | `test_preset_stories.py`, `test_solve.py::test_a_genuinely_infeasible_configuration_returns_none_not_a_wrong_cost` |
 
@@ -194,3 +194,5 @@ Tests: `python -m pytest tests/ -v`. Preset-Abstimmung: `python tools/tune_prese
 ---
 
 Gebaut mit Streamlit, Plotly, scipy und fpdf2.
+
+Diese Demo ist Teil des Portfolios von [Sebastian Hanisch](https://sebastianhanisch.net) – Operations Research und Machine Learning ([Über mich](https://sebastianhanisch.net/ueber-mich.html)). Mehr zum Thema: [Seefracht optimieren](https://sebastianhanisch.net/seefracht-optimierung.html).

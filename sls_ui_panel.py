@@ -24,7 +24,7 @@ def render_metrics(columns, shown, diag):
     windows_txt = "–" if diag.n_windows_met is None else f"{diag.n_windows_met} / {diag.n_windows}"
     m[0].metric("Fenster eingehalten (exakt)", windows_txt, help="Anzahl eingehaltener Ankunftsfenster von insgesamt N auf der gezeigten Route (Politik exakt).")
     m[1].metric("Kostenaufschlag gegen konstant", fmt_pct(diag.markup_vs_const_pct, sign=True), delta_color="inverse",
-                help="(Kosten exakt - Kosten konstant) / Kosten konstant. Kann leicht negativ sein - konstant ignoriert Fenster und ist deshalb manchmal minimal billiger.")
+                help="(Kosten exakt - Kosten konstant) / Kosten konstant. Nie negativ (bis auf Rundung): konstant fährt mit v*, dem Optimum ohne Fenster, und ist deshalb nie teurer als exakt - der Aufschlag ist der Preis der eingehaltenen Fenster.")
     m[2].metric("Gesamtkosten (exakt)", fmt_cost(shown.cost_exact) if shown.cost_exact is not None else "nicht machbar",
                 help="Treibstoff- und Charterkosten der Politik exakt auf der gezeigten Route.")
     status_txt = "✅ machbar" if diag.kind == "feasible" else "⛔ nicht machbar"

@@ -22,7 +22,7 @@ def pdf_text(text):
 
 def diagnosis_text(diag):
     if diag.kind == "infeasible":
-        return "Diese Fenster sind selbst mit Vollgas auf jeder Etappe nicht einzuhalten - mindestens ein Fenster lockern oder die Route verkuerzen."
+        return "Diese Fenster sind selbst mit Vollgas auf jeder Etappe nicht einzuhalten - mindestens ein Fenster lockern oder die Route verkürzen."
     markup = diag.markup_vs_const_pct
     sign = "teurer" if markup is not None and markup >= 0 else "billiger"
     return f"Machbar: alle {diag.n_windows} Fenster eingehalten, {abs(markup):.2f} % {sign} als die Politik konstant."
@@ -30,11 +30,11 @@ def diagnosis_text(diag):
 
 def verdict_text(v):
     if v.n == 0:
-        return "Kein Vergleich moeglich: keine Route der Stichprobe ist fuer die Politik exakt machbar."
+        return "Kein Vergleich möglich: keine Route der Stichprobe ist für die Politik exakt machbar."
     if v.kind == "better":
-        return f"Exakt gegen myopisch: im Mittel {abs(v.diff):.1f} Prozentpunkte weniger Verspaetungen je Route (Differenz {v.diff:+.1f}, Standardfehler {v.se:.1f}, n={v.n})."
+        return f"Exakt gegen myopisch: im Mittel {abs(v.diff):.1f} Prozentpunkte weniger Verspätungen je Route (Differenz {v.diff:+.1f}, Standardfehler {v.se:.1f}, n={v.n})."
     if v.kind == "worse":
-        return f"Exakt gegen myopisch: im Mittel {abs(v.diff):.1f} Prozentpunkte mehr Verspaetungen je Route (Differenz {v.diff:+.1f}, Standardfehler {v.se:.1f}, n={v.n})."
+        return f"Exakt gegen myopisch: im Mittel {abs(v.diff):.1f} Prozentpunkte mehr Verspätungen je Route (Differenz {v.diff:+.1f}, Standardfehler {v.se:.1f}, n={v.n})."
     return f"Kein klarer Unterschied zwischen exakt und myopisch bei dieser Einstellung (Differenz {v.diff:+.1f}, Standardfehler {v.se:.1f}, n={v.n})."
 
 
@@ -94,7 +94,7 @@ def generate_sls_pdf(n_legs, window_share, tightness, rate_ratio, seed, shown, d
 
     heading("Route und Einstellung")
     pairs([("Etappen", str(n_legs)), ("Anteil mit Fenster", f"{window_share} %"), ("Fenster-Enge", tightness),
-           ("Bunker-/Charter-Verhaeltnis", rate_ratio), ("Seed", str(seed))])
+           ("Bunker-/Charter-Verhältnis", rate_ratio), ("Seed", str(seed))])
     pdf.ln(3)
 
     heading("Zusammenfassung")
@@ -109,13 +109,13 @@ def generate_sls_pdf(n_legs, window_share, tightness, rate_ratio, seed, shown, d
     heading("Zwei-Achsen-Vergleich (Stichprobe)")
     rows = [["Myopisch", "–" if gap_myo is None else f"{gap_myo:+.2f} %", "–" if late_myo is None else f"{late_myo:.1f} %"],
             ["Konstant", "–" if gap_const is None else f"{gap_const:+.2f} %", "–" if late_const is None else f"{late_const:.1f} %"]]
-    table(["Politik", "Kostenaufschlag gegen exakt", "Verspaetungsanteil"], [40, 70, 60], rows)
-    note(f"Basis: {C.SAMPLE_INSTANCES} Stichprobenrouten derselben Einstellung (nicht der eingestellte Seed), nur die fuer exakt machbaren.")
+    table(["Politik", "Kostenaufschlag gegen exakt", "Verspätungsanteil"], [40, 70, 60], rows)
+    note(f"Basis: {C.SAMPLE_INSTANCES} Stichprobenrouten derselben Einstellung (nicht der eingestellte Seed), nur die für exakt machbaren.")
     pdf.ln(3)
 
     if verdict is not None:
         keep_together(40)
-        heading("Urteil ueber die Stichprobe")
+        heading("Urteil über die Stichprobe")
         pdf.set_font("Helvetica", "", 9)
         pdf.multi_cell(0, 5, pdf_text("- " + verdict_text(verdict)), new_x=XPos.LMARGIN, new_y=YPos.NEXT)
         pdf.ln(3)
@@ -124,10 +124,10 @@ def generate_sls_pdf(n_legs, window_share, tightness, rate_ratio, seed, shown, d
     heading("Hinweise zum Modell")
     pdf.set_font("Helvetica", "", 9)
     for text in [
-        "Treibstoffkosten je Etappe ~ Distanz x Geschwindigkeit^2 (Verbrauch ~ v^3, Zeit = Distanz/v); Charterkosten ~ Distanz/Geschwindigkeit. Ohne Fenster ist die kostenoptimale Geschwindigkeit v* konstant und distanzunabhaengig (wirtschaftliche Geschwindigkeit, Ronen 1982).",
-        "Konstant: immer v*, Fenster ignoriert. Myopisch: je Etappe lokal die langsamste Geschwindigkeit, die das EIGENE Fenster gerade noch schafft, ohne spaetere Etappen zu beruecksichtigen. Exakt: gemeinsame konvexe Optimierung ueber die ganze Route (trust-constr), haelt alle erreichbaren Fenster ein.",
-        "Nur ein spaetestes Fenster je Etappe (kein fruehestes/Warten). Distanzen und Fenster-Enge synthetisch erzeugt, nicht an echten Bunkerpreisen/Charterraten kalibriert. Kein Wetter, keine Stroemung, keine Geschwindigkeitsschwankung durch Wellengang.",
-        "Rechenzeit bei knappen/nicht machbaren Instanzen ist spuerbar hoeher als bei komfortablen (der Loeser iteriert laenger, bevor er aufgibt) - deshalb der kurze Ladeindikator statt einer Live-Berechnung ohne Anzeige.",
+        "Treibstoffkosten je Etappe ~ Distanz x Geschwindigkeit^2 (Verbrauch ~ v^3, Zeit = Distanz/v); Charterkosten ~ Distanz/Geschwindigkeit. Ohne Fenster ist die kostenoptimale Geschwindigkeit v* konstant und distanzunabhängig (wirtschaftliche Geschwindigkeit, Ronen 1982).",
+        "Konstant: immer v*, Fenster ignoriert. Myopisch: je Etappe lokal die langsamste Geschwindigkeit, die das EIGENE Fenster gerade noch schafft, ohne spätere Etappen zu berücksichtigen. Exakt: gemeinsame konvexe Optimierung über die ganze Route (trust-constr), hält alle erreichbaren Fenster ein.",
+        "Nur ein spätestes Fenster je Etappe (kein frühestes/Warten). Distanzen und Fenster-Enge synthetisch erzeugt, nicht an echten Bunkerpreisen/Charterraten kalibriert. Kein Wetter, keine Strömung, keine Geschwindigkeitsschwankung durch Wellengang.",
+        "Rechenzeit bei knappen/nicht machbaren Instanzen ist spürbar höher als bei komfortablen (der Löser iteriert länger, bevor er aufgibt) - deshalb der kurze Ladeindikator statt einer Live-Berechnung ohne Anzeige.",
     ]:
         pdf.multi_cell(0, 5, pdf_text("- " + text), new_x=XPos.LMARGIN, new_y=YPos.NEXT)
 
