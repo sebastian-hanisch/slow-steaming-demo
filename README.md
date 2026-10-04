@@ -1,6 +1,6 @@
 # Geschwindigkeitsoptimierung: Fenster halten statt nur sparen – Streamlit-Demo
 
-*(noch nicht deployed)*
+**[→ Demo live ausprobieren](https://sebastianhanisch-slow-steaming-demo.streamlit.app/)**
 
 Interaktive Fall-Demo zur **Geschwindigkeitsoptimierung (Slow Steaming)** einer Reederei: Treibstoffverbrauch steigt mit der dritten Potenz der Geschwindigkeit – langsamer fahren spart viel. Aber manche
 Häfen haben feste Zeitfenster (Kaiplatz-Slot, Tide, Anschlussverkehr): wer zu langsam fährt, verpasst sie. Die Demo beantwortet: **Wie viel kostet es wirklich, jedes Ankunftsfenster zuverlässig

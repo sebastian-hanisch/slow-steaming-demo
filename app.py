@@ -143,7 +143,7 @@ late_const = E.late_share_pct(sample_results, C.POLICY_CONST)
 
 st.plotly_chart(V.comparison_bars_figure(gap_myo, gap_const, late_myo, late_const), width="stretch", key="main_comparison_chart")
 st.caption(f"Basis: {C.SAMPLE_INSTANCES} Stichprobenrouten derselben Einstellung (nicht der eingestellte Seed), nur die für exakt machbaren. Rechenzeit gemessen: ein solve_exact-Aufruf "
-          f"braucht bei machbaren Instanzen im Mittel 50-60 ms, bei knappen/nicht machbaren spürbar mehr - deshalb der Ladeindikator statt einer Live-Berechnung ohne Anzeige.")
+          f"braucht je nach Einstellung und Rechner größenordnungsmäßig 0,1-0,3 s (hier gemessen, 6-7 Etappen), bei nicht machbaren Instanzen spürbar mehr - deshalb der Ladeindikator statt einer Live-Berechnung ohne Anzeige.")
 
 st.markdown("**Urteil über die Stichprobe** (gepaarte Differenz je Route, klar ab mehr als zwei Standardfehlern)")
 v = E.verdict(sample_results)
@@ -188,7 +188,7 @@ Charter-/Kapitalkosten ~ Distanz/Geschwindigkeit. Ein Teil der Etappen hat zusä
 wirtschaftlichen Geschwindigkeit v* und macht aus der Aufgabe ein echtes, konvexes Optimierungsproblem.
 
 **Die drei Politiken und warum "lokal klug" (myopisch) trotzdem global versagen kann.** Konstant ignoriert Fenster komplett - die Kontrast-Baseline. Myopisch wählt je Etappe lokal die langsamste
-Geschwindigkeit, die das EIGENE Fenster gerade noch schafft, ohne spätere Etappen zu berücksichtigen - das kann sich rächen: unnötig vorsichtiges Fahren auf einer früheren Etappe kann eine spätere
+Geschwindigkeit, die das EIGENE Fenster gerade noch schafft, ohne spätere Etappen zu berücksichtigen - das kann sich rächen: das Ausreizen des eigenen Fensters (so langsam wie gerade noch möglich) auf einer früheren Etappe kann eine spätere
 Etappe unerreichbar machen, selbst mit Vollgas. Exakt optimiert gemeinsam über die ganze Route (trust-constr) und hält alle Fenster ein, wo das physikalisch überhaupt möglich ist.
 
 **Warum die Kostenachse allein die falsche Geschichte erzählt.** Der Kostenunterschied zwischen den Politiken ist klein (myopisch nur 0,6-4,6 % teurer als exakt in den getesteten Einstellungen) - die
