@@ -112,7 +112,7 @@ Regler-Hilfetext. Permalink spiegelt alle fünf Werte in der Adresszeile.
 
 ## Tests
 
-`python -m pytest tests/ -v` – 113 Tests, rund 5 Minuten (die meisten AppTest-Läufe brauchen mehrere echte `solve_exact`-Aufrufe; „Nicht machbar“ allein braucht deutlich länger, weil jede infeasible
+`python -m pytest tests/ -v` – 126 Tests, rund 5 Minuten (die meisten AppTest-Läufe brauchen mehrere echte `solve_exact`-Aufrufe; „Nicht machbar“ allein braucht deutlich länger, weil jede infeasible
 Instanz den Löser bis `maxiter=500` laufen lässt statt früh abzubrechen). Zusammensetzung:
 
 - **Löser** (`test_solve.py`): **Optimalitäts-Regressionstest zuerst** (61 Instanzen inkl. der ursprünglichen Bug-Instanz), statischer Quelltext-Check gegen die Rückkehr des `res.success`-Bugs,
