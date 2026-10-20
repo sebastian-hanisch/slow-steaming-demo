@@ -72,7 +72,7 @@ def test_skeleton_and_footer():
     assert len(at.title) == 1 and "Geschwindigkeitsoptimierung" in at.title[0].value
     assert any(v.value.startswith("## 🎯") for v in at.markdown)
     assert any(v.value.startswith("### 📐") for v in at.markdown)
-    assert [e.label for e in at.expander] == ["🔧 Wie wir das erreichen – Politiken im Vergleich", "Wie funktioniert diese Demo?", "📐 Mathematische Formulierung"]
+    assert [e.label for e in at.expander] == ["💬 In einfachen Worten", "🔧 Wie wir das erreichen – Politiken im Vergleich", "Wie funktioniert diese Demo?", "📐 Mathematische Formulierung"]
     assert any(c.value == FOOTER for c in at.caption)
     presets = [b.label for b in at.button if b.label in C.PRESETS]
     assert presets == list(C.PRESETS) and len(presets) == 5 and all(len(n) <= 22 for n in presets)
@@ -300,9 +300,9 @@ def test_pdf_download_button_is_offered_for_the_infeasible_preset_too():
 
 def test_texts_state_the_model_and_the_limits():
     at = fresh()
-    text = "\n".join(m.value for m in at.expander[1].markdown)
+    text = "\n".join(m.value for m in at.expander[2].markdown)
     for needle in ("wirtschaftliche", "myopisch", "Ankunftsfenster", "Wetter"):
         assert needle in text, needle
-    math_text = "\n".join(m.value for m in at.expander[2].markdown)
+    math_text = "\n".join(m.value for m in at.expander[3].markdown)
     for needle in ("v^\\ast", "trust-constr", "KKT", "Optimalitäts-Regressionstest"):
         assert needle in math_text, needle

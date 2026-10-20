@@ -59,6 +59,17 @@ lokal oder gar nicht berücksichtigt. Wie das Modell funktioniert, steht im Expa
 """
 )
 
+# erklaerseite:einfach:start (erzeugt von tools/set_demo_explainer.py (Website-Repo) aus tools/content/explainers/slow-steaming-erklaert.json, nicht von Hand ändern)
+with st.expander("💬 In einfachen Worten"):
+    st.markdown(
+        """
+Ein Schiff verbraucht umso weniger Treibstoff, je langsamer es fährt. Dem stehen Kosten gegenüber, die mit der Fahrzeit laufen, etwa die Charter, also die Miete des Schiffes. Daraus ergibt sich eine **wirtschaftliche Geschwindigkeit**. Manche Häfen haben aber feste Zeitfenster, etwa einen Kaiplatz oder die Tide, den Wasserstand im Rhythmus der Gezeiten. Wer zu langsam ist, verpasst sie. Die Demo vergleicht drei Vorgehensweisen: die Fenster ignorieren, auf jeder Etappe nur das eigene Fenster beachten oder die ganze Route gemeinsam planen. Die Kosten liegen dicht beieinander, der Unterschied liegt in der Zuverlässigkeit, mit der die Fenster eingehalten werden. Es ist ein stark vereinfachtes Modell mit erfundenen Strecken und Fenstern.
+
+[Ausführlich und verständlich erklärt, mit Fachteil](https://sebastianhanisch.net/slow-steaming-erklaert.html)
+        """
+    )
+# erklaerseite:einfach:end
+
 st.caption("🎯 Schnellstart – ein Beispielszenario laden:")
 PRESET_HELP = {
     "Locker": "Fenster binden selten - trotzdem verpasst myopisch schon spürbar oft.",
@@ -206,6 +217,26 @@ Vorsicht immer noch spürbar oft. Nur die gemeinsame Optimierung ist zuverlässi
     )
 
 with st.expander("📐 Mathematische Formulierung"):
+    # erklaerseite:lesehilfe:start (erzeugt von tools/set_demo_explainer.py (Website-Repo) aus tools/content/explainers/slow-steaming-erklaert.json, nicht von Hand ändern)
+    st.markdown(
+        r"""
+**Lesehilfe.** Gegeben sind eine Route aus Etappen mit Distanzen, die Kostensätze für Treibstoff und Charter und für einen Teil der Etappen ein spätestes Ankunftsfenster. Gesucht ist die Geschwindigkeit je Etappe, bei der die Gesamtkosten am kleinsten sind und alle Fenster gehalten werden.
+
+| Symbol | Bedeutung |
+|---|---|
+| $i$, $j$ | Etappe |
+| $d_i$ | Distanz der Etappe $i$ |
+| $v_i$ | Geschwindigkeit auf der Etappe $i$ (in Knoten, kn) |
+| $k$ | Kostensatz für Treibstoff |
+| $r$ | Kostensatz für Charter und Kapital (Tagesrate) |
+| $v^\ast$ | wirtschaftliche Geschwindigkeit ohne Fenster |
+| $\text{deadline}_j$ | spätestes Ankunftsfenster bei Etappe $j$ |
+| $v_j'$ | gemeinsame Geschwindigkeit der Etappen bis $j$ bei einem bindenden Fenster |
+
+[Schritt für Schritt erklärt, mit Herleitung und Literatur](https://sebastianhanisch.net/slow-steaming-erklaert.html#fachleute)
+        """
+    )
+    # erklaerseite:lesehilfe:end
     st.markdown(
         r"""
 **Route.** Etappe $i \in \{0, \dots, N-1\}$ mit Distanz $d_i$, Geschwindigkeit $v_i \in [v_{\min}, v_{\max}] = [10, 24]$ kn; Kosten je Etappe $k \cdot d_i \cdot v_i^2 + r \cdot d_i / v_i$.
