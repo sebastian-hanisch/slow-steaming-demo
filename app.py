@@ -228,7 +228,7 @@ with st.expander("📐 Mathematische Formulierung"):
 | $d_i$ | Distanz der Etappe $i$ |
 | $v_i$ | Geschwindigkeit auf der Etappe $i$ (in Knoten, kn) |
 | $k$ | Kostensatz für Treibstoff |
-| $r$ | Kostensatz für Charter und Kapital (Tagesrate) |
+| $r$ | Kostensatz für Charter und Kapital (Stundenrate) |
 | $v^\ast$ | wirtschaftliche Geschwindigkeit ohne Fenster |
 | $\text{deadline}_j$ | spätestes Ankunftsfenster bei Etappe $j$ |
 | $v_j'$ | gemeinsame Geschwindigkeit der Etappen bis $j$ bei einem bindenden Fenster |

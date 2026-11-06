@@ -34,7 +34,7 @@ Zwei Dinge hat die Vorab-Messreihe (`seefracht-planung/messreihe_speed/`) am urs
 ## Modell
 
 Route mit N Etappen, Distanz $d_i$, Geschwindigkeit $v_i \in [10, 24]$ kn frei wählbar je Etappe. Treibstoffkosten je Etappe $k \cdot d_i \cdot v_i^2$ (Verbrauch ~ $v^3$, Zeit = $d_i/v_i$),
-Charter-/Kapitalkosten $r \cdot d_i / v_i$ (Tagesrate × Fahrzeit) – beide konvex in $v_i$. Ohne Nebenbedingung ist die kostenoptimale Geschwindigkeit auf **jeder** Etappe konstant und
+Charter-/Kapitalkosten $r \cdot d_i / v_i$ (Stundenrate × Fahrzeit in Stunden; Distanz in Seemeilen, Geschwindigkeit in Knoten) – beide konvex in $v_i$. Ohne Nebenbedingung ist die kostenoptimale Geschwindigkeit auf **jeder** Etappe konstant und
 distanzunabhängig: $v^\ast = (r/2k)^{1/3}$, die klassische „wirtschaftliche Geschwindigkeit“ der Schifffahrtsökonomie (Ronen 1982). Ein Teil der Etappen hat zusätzlich ein hartes **spätestes**
 Ankunftsfenster – das bricht die Konstanz von $v^\ast$ und macht aus der Aufgabe ein echtes, konvexes Optimierungsproblem. Formal im Expander „📐 Mathematische Formulierung“ der App.
 

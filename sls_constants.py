@@ -8,7 +8,7 @@ Seefracht-Wellen: ein stetiges, konvexes Optimierungsproblem (scipy), nicht Komb
 # --- Modellgrenzen (aus messreihe_speed/speed.py, unveraendert) -----------------------------------------
 V_MIN, V_MAX = 10.0, 24.0
 K_DEFAULT = 1.0            # Treibstoffkosten-Koeffizient, immer 1.0 (nur R variiert -> Bunker-/Charter-Verhaeltnis)
-R_DEFAULT = 11664.0        # Charter-Tagesrate: mit K_DEFAULT ergibt das v* = 18.0 kn genau (18^3 = 11664/2)
+R_DEFAULT = 11664.0        # Charter-Stundenrate: mit K_DEFAULT ergibt das v* = 18.0 kn genau (18^3 = 11664/2)
 
 # --- Regler ------------------------------------------------------------------------------------------
 N_LEGS_RANGE, N_LEGS_DEFAULT = (3, 10), 6
