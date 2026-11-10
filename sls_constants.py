@@ -38,7 +38,7 @@ RATE_RATIO_LEVELS = {
     "Sehr hoch (v*=23 kn)": 2 * K_DEFAULT * 23.0 ** 3,
 }
 RATE_RATIO_DEFAULT = "Standard (v*=18 kn)"
-RATE_RATIO_HELP = "Verhältnis Charterrate/Bunkerkosten; verschiebt die wirtschaftliche Geschwindigkeit v* selbst - zeigt, dass der Zuverlässigkeits-Hook unabhängig vom Kostenniveau trägt."
+RATE_RATIO_HELP = "Verhältnis Charterrate/Bunkerkosten; verschiebt die wirtschaftliche Geschwindigkeit v* selbst - zeigt, dass der Zuverlässigkeits-Hook unabhängig vom Kostenniveau gilt."
 RATE_RATIO_URL_KEYS = {
     "Sehr niedrig (v*=12 kn)": "v12", "Niedrig (v*=15 kn)": "v15", "Standard (v*=18 kn)": "v18",
     "Hoch (v*=21 kn)": "v21", "Sehr hoch (v*=23 kn)": "v23",
@@ -65,7 +65,7 @@ POLICY_DESCRIPTIONS = {
     POLICY_CONST: "Fährt immer mit der wirtschaftlichen Geschwindigkeit v*, Fenster komplett ignoriert. Die "
                   "Kontrast-Baseline: zeigt, wie oft reines Kostensparen die Fenster kostet.",
     POLICY_MYOPIC: "Wählt je Etappe lokal die langsamste Geschwindigkeit, die das EIGENE Fenster gerade noch "
-                   "schafft, ohne spätere Etappen zu berücksichtigen. Die \"naheliegend kluge\" Regel - trägt "
+                   "schafft, ohne spätere Etappen zu berücksichtigen. Die \"naheliegend kluge\" Regel - hat "
                    "trotzdem einen echten Zuverlässigkeits-Nachteil.",
     POLICY_EXACT: "Konvexe Optimierung über die ganze Route (trust-constr), hält alle Fenster ein, wo "
                   "physikalisch überhaupt möglich (bis V_MAX). Die operative Empfehlung der Hauptansicht.",

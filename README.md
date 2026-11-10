@@ -43,7 +43,7 @@ Ankunftsfenster – das bricht die Konstanz von $v^\ast$ und macht aus der Aufga
 Wie bei der Mehrhafen-Stauplanung sind das drei Bausteine, kein stetiger Regler:
 
 - **🐌 Konstant**: immer wirtschaftliche Geschwindigkeit v*, Fenster komplett ignoriert – die Kontrast-Baseline.
-- **👁️ Myopisch**: je Etappe lokal die langsamste Geschwindigkeit, die das EIGENE Fenster gerade noch schafft, ohne spätere Etappen zu berücksichtigen – die „naheliegend kluge“ Regel, trägt trotzdem
+- **👁️ Myopisch**: je Etappe lokal die langsamste Geschwindigkeit, die das EIGENE Fenster gerade noch schafft, ohne spätere Etappen zu berücksichtigen – die „naheliegend kluge“ Regel, hat trotzdem
   einen echten Zuverlässigkeits-Nachteil.
 - **🎯 Exakt (gemeinsam optimiert)**: konvexe Optimierung über die ganze Route (`trust-constr`), hält alle Fenster ein, wo das physikalisch überhaupt möglich ist – die operative Empfehlung der
   Hauptansicht.
