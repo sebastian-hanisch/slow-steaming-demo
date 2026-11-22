@@ -22,7 +22,7 @@ def pdf_text(text):
 
 def diagnosis_text(diag):
     if diag.kind == "infeasible":
-        return "Diese Fenster sind selbst mit Vollgas auf jeder Etappe nicht einzuhalten - mindestens ein Fenster lockern oder die Route verkürzen."
+        return "Diese Fenster sind selbst mit Höchstgeschwindigkeit auf jeder Etappe nicht einzuhalten - mindestens ein Fenster lockern oder die Route verkürzen."
     markup = diag.markup_vs_const_pct
     sign = "teurer" if markup is not None and markup >= 0 else "billiger"
     return f"Machbar: alle {diag.n_windows} Fenster eingehalten, {abs(markup):.2f} % {sign} als die Politik konstant."

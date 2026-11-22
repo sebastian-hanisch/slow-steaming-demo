@@ -39,7 +39,7 @@ def render_policy_panel(prefix, policy, route, v_exact, v_myo, v_const, shown):
     n_late_map = {C.POLICY_EXACT: 0 if shown.cost_exact is not None else None, C.POLICY_MYOPIC: shown.n_late_myo, C.POLICY_CONST: shown.n_late_const}
     v, cost, n_late = v_map[policy], cost_map[policy], n_late_map[policy]
     if policy == C.POLICY_EXACT and v is None:
-        st.warning("⚠️ Diese Fenster sind selbst mit Vollgas nicht einzuhalten - keine Lösung für diese Politik auf der gezeigten Route.")
+        st.warning("⚠️ Diese Fenster sind selbst mit Höchstgeschwindigkeit nicht einzuhalten - keine Lösung für diese Politik auf der gezeigten Route.")
         return
     col1, col2 = st.columns(2)
     col1.metric("Gesamtkosten", fmt_cost(cost))

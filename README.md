@@ -129,7 +129,7 @@ Instanz den Löser bis `maxiter=500` laufen lässt statt früh abzubrechen). Zus
   (inkl. Enum-Decodierung), alle Regler an Min/Max, die bedingte Meldung in beiden Zuständen, Urteil in allen drei Zuständen, Vergleichstabelle, PDF (auch im infeasiblen Fall), Texte, statischer
   Nachweis, dass der Ladeindikator (`show_spinner=C.SOLVE_SPINNER_TEXT`) tatsächlich am `solve_exact`-Aufruf hängt.
 
-Zusätzlich ein Fehler-Einbau-Test (`tools/mutation_check.py`, 21 Mutanten über `sls_solve`, `sls_scenario`, `sls_evaluation`, `sls_stories`, `sls_presets`): erster Lauf **12 gefunden, 9 überlebt, 0 Fehler
+Zusätzlich ein Mutationstest mit absichtlich eingebauten Fehlern (`tools/mutation_check.py`, 21 Mutanten über `sls_solve`, `sls_scenario`, `sls_evaluation`, `sls_stories`, `sls_presets`): erster Lauf **12 gefunden, 9 überlebt, 0 Fehler
 in der Mutantenliste.** Drei der neun Überlebenden waren echte Testlücken (Distanz-Obergrenze nur locker statt eng geprüft, zwei exakte Schwellenwerte ohne künstlichen Grenzfalltest) – dafür wurden drei
 gezielte Tests ergänzt (`test_distances_span_close_to_the_full_documented_range_across_many_draws`, `test_verdict_is_unclear_exactly_at_the_two_standard_error_threshold`,
 `test_artificial_values_tip_the_mittel_myopic_criterion_exactly_at_its_threshold`); alle drei Mutationen wurden danach einzeln direkt (ohne den vollen, mehrere Sekunden je Mutant kostenden
@@ -161,7 +161,7 @@ pytest-Subprocess mit mehreren echten `solve_exact`-Aufrufen, rund 3–4 Minuten
 | `sls_pdf_export.py` | PDF-Export (`fpdf2`, Sonderzeichen-Bereinigung) | Muster `mhs_pdf_export.py` |
 | `sls_stories.py` | Abnahmekriterien der Presets (Population UND gezeigte Route) | Muster `mhs_stories.py` |
 | `tools/tune_presets.py` | Preset-Abstimmung/-Prüfung, Grid-Suche für die infeasible Kombination | neu |
-| `tools/mutation_check.py` | Fehler-Einbau-Test | Muster `mhs`/`tools/mutation_check.py` |
+| `tools/mutation_check.py` | Mutationstest | Muster `mhs`/`tools/mutation_check.py` |
 | `tests/` | siehe oben | neu |
 
 ## Bewusst nicht umgesetzt (mögliche Erweiterungen)
@@ -179,7 +179,7 @@ Modell vergleichen, nicht die Kulisse (Stand 2026-09-23):
 
 - **CO2-optimale Fahrgeschwindigkeit im Straßenverkehr** (Pollution-Routing, `vrp_demo`) ist dasselbe Geschwindigkeitsmodell
   mit Lkw statt Schiff: kubische bis quadratische Verbrauchskosten, Zeitfenster je Etappe, gemeinsame gegen lokale
-  Berücksichtigung. Als Dopplung verworfen. Neu wäre nur die Kopplung mit der Tourenwahl. Die Befunde dieser Demo
+  Berücksichtigung. Als Dopplung verworfen. Neu wäre nur die Kopplung mit der Tourenplanung. Die Befunde dieser Demo
   (kleiner Kostenunterschied, der Hook ist die Zuverlässigkeit der Fenster) sind dafür der Ausgangspunkt.
 
 ## Lokal ausführen
@@ -189,7 +189,7 @@ pip install -r requirements-dev.txt
 streamlit run app.py
 ```
 
-Tests: `python -m pytest tests/ -v`. Preset-Abstimmung: `python tools/tune_presets.py`. Infeasible-Kombination suchen: `python tools/tune_presets.py --search`. Fehler-Einbau: `python tools/mutation_check.py`.
+Tests: `python -m pytest tests/ -v`. Preset-Abstimmung: `python tools/tune_presets.py`. Infeasible-Kombination suchen: `python tools/tune_presets.py --search`. Mutationstest: `python tools/mutation_check.py`.
 
 ---
 

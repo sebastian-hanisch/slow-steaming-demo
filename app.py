@@ -76,7 +76,7 @@ PRESET_HELP = {
     "Mittel": "Der Grundfall: reale Lücke zwischen allen drei Politiken.",
     "Eng, machbar": "Nah an der Kapazitätsgrenze, aber exakt schafft es immer noch - konstant fast nie.",
     "Viele Fenster": "Jede Etappe zählt - kaskadierende Effekte werden bei myopisch am deutlichsten.",
-    "Nicht machbar": "Ehrlicher Grenzfall: diese Fenster sind mit KEINER Politik einzuhalten, auch nicht mit Vollgas.",
+    "Nicht machbar": "Ehrlicher Grenzfall: diese Fenster sind mit KEINER Politik einzuhalten, auch nicht mit Höchstgeschwindigkeit.",
 }
 preset_names = list(C.PRESETS.keys())
 for row in (preset_names[:3], preset_names[3:]):
@@ -118,7 +118,7 @@ metric_rows = [st.columns(2), st.columns(2)]
 render_metrics(metric_rows[0] + metric_rows[1], shown, diag)
 
 if diag.kind == "infeasible":
-    st.error("⛔ Diese Fenster sind selbst mit Vollgas nicht einzuhalten - mindestens ein Fenster lockern oder die Route verkürzen.")
+    st.error("⛔ Diese Fenster sind selbst mit Höchstgeschwindigkeit nicht einzuhalten - mindestens ein Fenster lockern oder die Route verkürzen.")
 else:
     markup = diag.markup_vs_const_pct
     if markup is not None and markup > 0.5:
@@ -200,7 +200,7 @@ wirtschaftlichen Geschwindigkeit v* und macht aus der Aufgabe ein echtes, konvex
 
 **Die drei Politiken und warum "lokal klug" (myopisch) trotzdem global versagen kann.** Konstant ignoriert Fenster komplett - die Kontrast-Baseline. Myopisch wählt je Etappe lokal die langsamste
 Geschwindigkeit, die das EIGENE Fenster gerade noch schafft, ohne spätere Etappen zu berücksichtigen - das kann sich rächen: das Ausreizen des eigenen Fensters (so langsam wie gerade noch möglich) auf einer früheren Etappe kann eine spätere
-Etappe unerreichbar machen, selbst mit Vollgas. Exakt optimiert gemeinsam über die ganze Route (trust-constr) und hält alle Fenster ein, wo das physikalisch überhaupt möglich ist.
+Etappe unerreichbar machen, selbst mit Höchstgeschwindigkeit. Exakt optimiert gemeinsam über die ganze Route (trust-constr) und hält alle Fenster ein, wo das physikalisch überhaupt möglich ist.
 
 **Warum die Kostenachse allein die falsche Geschichte erzählt.** Der Kostenunterschied zwischen den Politiken ist klein (myopisch nur 0,6-4,6 % teurer als exakt in den getesteten Einstellungen) - die
 quadratische Kostenkurve um v* ist in der Nähe des Optimums flach. Der eigentliche Unterschied ist die **Verspätung**: konstant verpasst Fenster oft in der Mehrheit der Fälle, myopisch trotz lokaler
